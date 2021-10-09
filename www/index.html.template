@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'/>
+    <title>Wyszukiwarka ulic: $TITLE</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css' rel='stylesheet'/>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .marker {
+          background-image: url('marker.png');
+          background-size: cover;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+
+<script>
+    mapboxgl.accessToken = '$MAPBOX_TOKEN';
+
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/light-v10',
+      center: [19.407222, 52.088611],
+      zoom: 6
+    });
+
+    const pins = $PINS;
+
+    for(pin of pins) {
+        const el = document.createElement('div');
+        el.className = 'marker';
+        el.title = pin.title;
+        new mapboxgl.Marker(el).setLngLat(pin.coordinates).addTo(map);
+    }
+</script>
+
+</body>
+</html>
