@@ -6,7 +6,7 @@ class Cities(object):
         self.file = file
 
     def find_by_id(self, city_id):
-        with open(self.file) as fp:
+        with open(self.file, encoding="utf-8") as fp:
             lines = fp.readlines()
             city = self.__find_exact_city(lines, city_id)
 
@@ -37,7 +37,7 @@ class Streets(object):
         self.cities = cities
 
     def find_by_street_name(self, street_name):
-        with open(self.file) as fp:
+        with open(self.file, encoding="utf-8") as fp:
             lines = fp.readlines()
             for line in lines:
                 if street_name.lower() in line.lower():
